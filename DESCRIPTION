@@ -9,5 +9,6 @@ Depends:
 License: GPL-2
 LazyData: TRUE
 Imports:
-    survival
+    survival,
+    shiny
 RoxygenNote: 5.0.1
