@@ -31,4 +31,3 @@ additional line for each value in \code{.at}
 \code{condKMplot} produces a Kaplan-Meier plot for a variety of times on
 which to condition
 }
-

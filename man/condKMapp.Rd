@@ -20,4 +20,3 @@ with one row for each time on which you are conditioning.
 \code{condKMapp} produces an interactive Shiny app containing output from
 both the \code{condKMest} function and the \code{condKMplot} function.
 }
-

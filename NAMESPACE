@@ -2,4 +2,5 @@
 
 export(condKMapp)
 export(condKMest)
+export(condKMggplot)
 export(condKMplot)

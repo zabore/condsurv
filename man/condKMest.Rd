@@ -27,4 +27,3 @@ For example, if \code{.t1} = 2 and \code{.t2} = 5, the function
 will return the probability of surviving to year 5 conditioned on having
 already survived to year 2
 }
-
