@@ -49,6 +49,7 @@ condKMggplot <- function(.basekm, .at, .main = NULL, .xlab = "Years",
 
   ggplot(condsurvdat, aes(x = time, y = prob, color = condtime)) +
     geom_step(lwd = .lwd) +
+    ylim(0, 1) +
     xlab(.xlab) +
     ylab(.ylab) +
     labs(color = "x") +
