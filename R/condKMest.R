@@ -41,7 +41,7 @@ condKMest <- function(basekm, t1, t2) {
   }
 
   cs <- summary(basekm, times = c(t1, t2))$surv[2] /
-    summary(.basekm, times = c(t1, t2))$surv[1]
+    summary(basekm, times = c(t1, t2))$surv[1]
 
   cs.sq <- cs^2
 
