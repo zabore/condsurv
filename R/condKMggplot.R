@@ -22,21 +22,20 @@ condKMggplot <- function(basekm,
                          xlab = "Years",
                          ylab = "Survival probability",
                          lwd = 1) {
-
-  if(class(basekm) != "survfit") {
+  if (class(basekm) != "survfit") {
     stop(
       "Argument to basekm must be of class survfit"
     )
   }
 
-  if(max(at) > max(basekm$time)) {
+  if (max(at) > max(basekm$time)) {
     stop(
       paste(
         "Argument to at specifies value(s) outside the range of observed times;",
-    "the maximum observed time is", round(max(.basekm$time),2)
+        "the maximum observed time is", round(max(.basekm$time), 2)
       )
     )
-    }
+  }
 
   at <- c(0, at)
 
@@ -45,23 +44,27 @@ condKMggplot <- function(basekm,
   fitkm <- list()
   fitkmdat <- list()
 
-  for(i in 1:nt) {
+  for (i in 1:nt) {
     fitkm[[i]] <- survival::survfit(
       formula = as.formula(basekm$call$formula),
       data = eval(basekm$call$data),
-      start.time = at[i])
+      start.time = at[i]
+    )
 
     fitkmdat[[i]] <- tibble::tibble(
       time = fitkm[[i]]$time,
-      prob = fitkm[[i]]$surv)
-    }
+      prob = fitkm[[i]]$surv
+    )
+  }
 
   condsurvdat <- fitkmdat %>%
     purrr::map_df(`[`, .id = "condtime") %>%
     dplyr::mutate(condtime = factor(condtime, labels = at))
 
-  ggplot2::ggplot(condsurvdat,
-                  ggplot2::aes(x = time, y = prob, color = condtime)) +
+  ggplot2::ggplot(
+    condsurvdat,
+    ggplot2::aes(x = time, y = prob, color = condtime)
+  ) +
     ggplot2::geom_step(lwd = lwd) +
     ggplot2::ylim(0, 1) +
     ggplot2::labs(

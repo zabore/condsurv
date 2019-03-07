@@ -19,25 +19,25 @@
 #'
 
 condKMest <- function(basekm, t1, t2) {
-
-  if(class(basekm) != "survfit") {
+  if (class(basekm) != "survfit") {
     stop(
       "Argument to basekm must be of class survfit"
     )
-    }
+  }
 
-  if(max(t1) > max(basekm$time)) {
+  if (max(t1) > max(basekm$time)) {
     stop(
       paste(
-        "Argument to t1 specifies a value outside the range of observed times;", "the maximum observed time is", round(max(basekm$time),2))
+        "Argument to t1 specifies a value outside the range of observed times;", "the maximum observed time is", round(max(basekm$time), 2)
+      )
     )
   }
 
-  if(max(t2) > max(basekm$time)) {
+  if (max(t2) > max(basekm$time)) {
     stop(paste(
-    "Argument to t2 specifies a value outside the range of observed times;",
-    "the maximum observed time is", round(max(basekm$time),2))
-    )
+      "Argument to t2 specifies a value outside the range of observed times;",
+      "the maximum observed time is", round(max(basekm$time), 2)
+    ))
   }
 
   cs <- summary(basekm, times = c(t1, t2))$surv[2] /
@@ -46,12 +46,12 @@ condKMest <- function(basekm, t1, t2) {
   cs.sq <- cs^2
 
   d <- basekm$n.event[basekm$time >= t1 &
-                        basekm$time <= t2 &
-                        basekm$n.event > 0]
+    basekm$time <= t2 &
+    basekm$n.event > 0]
 
   r <- basekm$n.risk[basekm$time >= t1 &
-                       basekm$time <= t2 &
-                       basekm$n.event > 0]
+    basekm$time <= t2 &
+    basekm$n.event > 0]
 
   dr <- d / (r * (r - d))
 
@@ -59,13 +59,13 @@ condKMest <- function(basekm, t1, t2) {
 
   ci <- cs + c(-1, 1) * (stats::qnorm(0.975) * sqrt(var.cs))
 
-  if(ci[1] < 0) {
+  if (ci[1] < 0) {
     warning(
       "Lower bound of CI has been truncated to 0"
     )
   }
 
-  if(ci[2] > 1) {
+  if (ci[2] > 1) {
     warning(
       "Upper bound of CI has been truncated to 1"
     )
@@ -73,11 +73,11 @@ condKMest <- function(basekm, t1, t2) {
 
   ci.cs <- round(ci, 2)
 
-  if(ci.cs[1] < 0) {
+  if (ci.cs[1] < 0) {
     ci.cs[1] <- 0
   }
 
-  if(ci.cs[2] > 1) {
+  if (ci.cs[2] > 1) {
     ci.cs[2] <- 1
   }
 
@@ -86,6 +86,6 @@ condKMest <- function(basekm, t1, t2) {
       cs_est = round(cs, 2),
       cs_lci = ci.cs[1],
       cs_uci = ci.cs[2]
-      )
     )
+  )
 }
