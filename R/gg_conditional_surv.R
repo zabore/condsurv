@@ -22,6 +22,8 @@ gg_conditional_surv <- function(basekm,
                          xlab = "Years",
                          ylab = "Survival probability",
                          lwd = 1) {
+  library(magrittr)
+
   if (class(basekm) != "survfit") {
     stop(
       "Argument to basekm must be of class survfit"
@@ -32,7 +34,7 @@ gg_conditional_surv <- function(basekm,
     stop(
       paste(
         "Argument to at specifies value(s) outside the range of observed times;",
-        "the maximum observed time is", round(max(.basekm$time), 2)
+        "the maximum observed time is", round(max(basekm$time), 2)
       )
     )
   }
@@ -46,13 +48,13 @@ gg_conditional_surv <- function(basekm,
 
   for (i in 1:nt) {
     fitkm[[i]] <- survival::survfit(
-      formula = as.formula(basekm$call$formula),
+      formula = stats::as.formula(basekm$call$formula),
       data = eval(basekm$call$data),
       start.time = at[i]
     )
 
     fitkmdat[[i]] <- tibble::tibble(
-      time = fitkm[[i]]$time,
+      timept = fitkm[[i]]$time,
       prob = fitkm[[i]]$surv
     )
   }
@@ -63,7 +65,7 @@ gg_conditional_surv <- function(basekm,
 
   ggplot2::ggplot(
     condsurvdat,
-    ggplot2::aes(x = time, y = prob, color = condtime)
+    ggplot2::aes(x = timept, y = prob, color = condtime)
   ) +
     ggplot2::geom_step(lwd = lwd) +
     ggplot2::ylim(0, 1) +
