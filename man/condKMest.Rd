@@ -4,26 +4,26 @@
 \alias{condKMest}
 \title{Estimate conditional survival with a 95\% confidence interval}
 \usage{
-condKMest(.basekm, .t1, .t2)
+condKMest(basekm, t1, t2)
 }
 \arguments{
-\item{.basekm}{\code{survfit} object}
+\item{basekm}{\code{survfit} object}
 
-\item{.t1}{the time on which to condition}
+\item{t1}{the time on which to condition}
 
-\item{.t2}{the survival time to estimate}
+\item{t2}{the survival time to estimate}
 }
 \value{
-A list where \code{cs} is the conditional survival estimate,
-\code{cilow} is the lower bound of the 95% confidence interval and
-\code{cihigh} is the upper bound of the 95% confidence interval
+A list where \code{cs_est} is the conditional survival estimate,
+\code{cs_lci} is the lower bound of the 95% confidence interval and
+\code{cs_uci} is the upper bound of the 95% confidence interval
 }
 \description{
 \code{condKMest} estimates the Kaplan-Meier conditional survival at
 fixed time points and produces a 95\% confidence interval
 }
 \details{
-For example, if \code{.t1} = 2 and \code{.t2} = 5, the function
+For example, if \code{t1} = 2 and \code{t2} = 5, the function
 will return the probability of surviving to year 5 conditioned on having
 already survived to year 2
 }
