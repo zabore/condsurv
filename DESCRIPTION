@@ -3,7 +3,7 @@ Title: Conditional survival estimates and plots
 Version: 0.1.2
 Date: 2018-04-07
 Authors@R: person("Emily", "Zabor", email = "zabore@mskcc.org", role = c("aut", "cre"))
-Description: This package contains functions to produce conditional survival estimates with 95% confidence intervals, and to plot Kaplan-Meier conditional survival estimates over a range of conditioned times.
+Description: Functions to produce conditional survival estimates with 95% confidence intervals, and to plot Kaplan-Meier conditional survival estimates over a range of conditioned times.
 Depends:
     R (>= 3.1.0)
 License: GPL-2
@@ -15,6 +15,4 @@ Imports:
     ggplot2,
     purrr
 RoxygenNote: 6.1.1
-Suggests: 
-    spelling
-Language: en-US
+

@@ -1,6 +1,6 @@
 #' Generate conditional survival plots using ggplot2
 #'
-#' \code{condKMggplot} produces a Kaplan-Meier plot for a variety of times on
+#' \code{gg_conditional_surv} produces a Kaplan-Meier plot for a variety of times on
 #' which to condition using ggplot2
 #'
 #' @param basekm \code{survfit} object
@@ -16,7 +16,7 @@
 #' @export
 #'
 
-condKMggplot <- function(basekm,
+gg_conditional_surv <- function(basekm,
                          at,
                          main = NULL,
                          xlab = "Years",
