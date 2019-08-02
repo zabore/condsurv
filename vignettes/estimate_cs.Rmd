@@ -1,0 +1,95 @@
+---
+title: "Estimate conditional survival"
+author: "Emily C. Zabor"
+date: "Last updated: `r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{estimate_cs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE}
+library(condsurv)
+library(dplyr)
+library(survival)
+```
+
+
+If $S(t)$ represents the survival function at time $t$, then conditional survival is defined as 
+
+$$S(y|x) = \frac{S(x + y)}{S(x)}$$
+
+where $y$ is the number of additional survival years of interest and $x$ is the number of years a subject has already survived.
+
+
+## Generating conditional survival estimates
+
+The `conditional_surv_est` function will generate this estimate along with 95\% confidence intervals.
+
+The `lung` dataset from the `survival` package will be used to illustrate.
+
+```{r message = FALSE}
+# Scale the time variable to be in years rather than days
+lung2 <- 
+  mutate(
+    lung,
+    os_yrs = time / 365.25
+  )
+```
+
+First generate a single conditional survival estimate. This is the conditional survival of surviving to 1 year conditioned on already having survived 6 months ($0.5$ year). This returns a list, where `cs_est` is the conditional survival estimate, `cs_lci` is the lower bound of the 95\% confidence interval and `cs_uci` is the upper bound of the 95\% confidence interval. 
+
+```{r}
+myfit <- survfit(Surv(os_yrs, status) ~ 1, data = lung2)
+
+conditional_surv_est(
+  basekm = myfit,
+  t1 = 0.5, 
+  t2 = 1
+)
+```
+
+You can easily use `purrr::map_df` to get a table of estimates for multiple timepoints. For example we could get the conditional survival estimate of surviving to a variety of different time points given that the subject has already survived for 6 months (0.5 years).
+
+```{r}
+prob_times <- seq(1, 2.5, 0.5)
+
+purrr::map_df(
+  prob_times, 
+  ~conditional_surv_est(
+    basekm = myfit, 
+    t1 = 0.5, 
+    t2 = .x) 
+  ) %>% 
+  mutate(years = prob_times) %>% 
+  select(years, everything()) %>% 
+  knitr::kable()
+```
+
+## A note on confidence interval estimation
+
+The confidence intervals are based on a variation of the log-log transformation, also known as the "exponential" Greenwood formula, where the conditional survival estimate is substituted in for the traditional survival estimate in constructing the confidence interval.
+
+If $\hat{S}(y|x)$ is the estimated conditional survival to $y$ given having already survived to $x$, then 
+
+$$\hat{S}(y|x)^{exp(\pm1.96\sqrt{\hat{L}(y|x)})}$$
+
+where 
+
+$$\hat{L}(y|x)=\frac{1}{\log(\hat{S}(y|x))^2}\sum_{j:x \leq \tau_j \leq y}\frac{d_j}{(r_j-d_j)r_j}$$
+
+and
+
+$\tau_j$ = distinct death time $j$
+
+$d_j$ = number of failures at death time $j$
+
+$r_j$ = number at risk at death time $j$

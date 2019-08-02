@@ -25,5 +25,8 @@ fixed time points and produces a 95\% confidence interval
 \details{
 For example, if \code{t1} = 2 and \code{t2} = 5, the function
 will return the probability of surviving to year 5 conditioned on having
-already survived to year 2
+already survived to year 2. See the vignette
+at \href{http://www.emilyzabor.com/condsurv/articles/estimate_cs.html}{http://www.emilyzabor.com/condsurv/articles/estimate_cs.html} for
+details on calculations of conditional survival estimates and confidence
+intervals, and examples.
 }

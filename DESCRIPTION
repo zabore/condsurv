@@ -1,8 +1,8 @@
 Package: condsurv
 Title: Conditional survival estimates and plots
-Version: 0.1.2
+Version: 1.0.0
 Date: 2018-04-07
-Authors@R: person("Emily", "Zabor", email = "zabore@mskcc.org", role = c("aut", "cre"))
+Authors@R: c(person("Emily C.", "Zabor", email = "zabore2@ccf.org", role = c("aut", "cre")), person("Mithat", "Gonen", role = "aut"))
 Description: Functions to produce conditional survival estimates with 95% confidence intervals, and to plot Kaplan-Meier conditional survival estimates over a range of conditioned times.
 Depends:
     R (>= 3.1.0)
@@ -10,10 +10,13 @@ License: GPL-2
 LazyData: TRUE
 Imports:
     survival,
-    shiny,
     dplyr,
     ggplot2,
     purrr
 RoxygenNote: 6.1.1
 Encoding: UTF-8
-
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: http://www.emilyzabor.com/condsurv/

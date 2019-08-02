@@ -1,0 +1,10 @@
+pandoc: '2.6'
+pkgdown: 1.3.0
+pkgdown_sha: ~
+articles:
+  estimate_cs: estimate_cs.html
+  plot_cs: plot_cs.html
+urls:
+  reference: http://www.emilyzabor.com/condsurv//reference
+  article: http://www.emilyzabor.com/condsurv//articles
+

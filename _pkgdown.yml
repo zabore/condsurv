@@ -1,0 +1,23 @@
+url: http://www.emilyzabor.com/condsurv/
+
+template:
+  params:
+    bootswatch: lumen
+
+navbar:
+  type: default
+  left:
+  - icon: fa-home
+    href: index.html
+  - text: Function Documentation
+    href: reference/index.html
+  - text: Tutorials
+    menu:
+    - text: "Estimate conditional survival"
+      href: articles/estimate_cs.html
+    - text: "Plot conditional survival curves"
+      href: articles/plot_cs.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/zabore/condsurv
+

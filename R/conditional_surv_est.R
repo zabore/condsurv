@@ -9,7 +9,10 @@
 #'
 #' @details For example, if \code{t1} = 2 and \code{t2} = 5, the function
 #' will return the probability of surviving to year 5 conditioned on having
-#' already survived to year 2
+#' already survived to year 2. See the vignette
+#' at \href{http://www.emilyzabor.com/condsurv/articles/estimate_cs.html}{http://www.emilyzabor.com/condsurv/articles/estimate_cs.html} for
+#' details on calculations of conditional survival estimates and confidence
+#' intervals, and examples.
 #'
 #' @return A list where \code{cs_est} is the conditional survival estimate,
 #' \code{cs_lci} is the lower bound of the 95% confidence interval and
@@ -55,31 +58,11 @@ conditional_surv_est <- function(basekm, t1, t2) {
 
   dr <- d / (r * (r - d))
 
-  var.cs <- cs.sq * sum(dr)
+  var.cs <- 1 / (log(cs)^2) * sum(dr)
 
-  ci <- cs + c(-1, 1) * (stats::qnorm(0.975) * sqrt(var.cs))
-
-  if (ci[1] < 0) {
-    warning(
-      "Lower bound of CI has been truncated to 0"
-    )
-  }
-
-  if (ci[2] > 1) {
-    warning(
-      "Upper bound of CI has been truncated to 1"
-    )
-  }
+  ci <- cs^(exp(c(1, -1) * stats::qnorm(0.975) * sqrt(var.cs)))
 
   ci.cs <- round(ci, 2)
-
-  if (ci.cs[1] < 0) {
-    ci.cs[1] <- 0
-  }
-
-  if (ci.cs[2] > 1) {
-    ci.cs[2] <- 1
-  }
 
   return(
     list(

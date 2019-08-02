@@ -1,0 +1,53 @@
+---
+title: "Plot conditional survival estimates over time"
+author: "Emily C. Zabor"
+date: "Last updated: `r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{plot_cs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE}
+library(condsurv)
+library(survival)
+library(ggplot2)
+library(dplyr)
+```
+
+To plot the conditional survival curves at baseline, and for those who have survived 6 months, 1 year, 1.5 years, and 2 years, we use the `gg_conditional_surv` function.
+
+The `lung` dataset from the `survival` package will be used to illustrate.
+
+```{r message = FALSE}
+# Scale the time variable to be in years rather than days
+lung2 <- 
+  mutate(
+    lung,
+    os_yrs = time / 365.25
+  )
+```
+
+```{r fig.width = 6, fig.height = 4}
+myfit <- survfit(Surv(os_yrs, status) ~ 1, data = lung2)
+
+cond_times <- seq(0, 2, 0.5)
+
+gg_conditional_surv(
+  basekm = myfit, 
+  at = cond_times,
+  main = "Conditional survival in lung data"
+  ) 
+```
+
+
+
+

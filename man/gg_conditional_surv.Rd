@@ -23,6 +23,10 @@ gg_conditional_surv(basekm, at, main = NULL, xlab = "Years",
 \value{
 A ggplot with a line for the overall Kaplan-Meier plot and one
 additional line for each value in \code{at}
+
+#' @details See the vignette
+at \href{http://www.emilyzabor.com/condsurv/articles/plot_cs.html}{http://www.emilyzabor.com/condsurv/articles/plot_cs.html} for
+details and examples.
 }
 \description{
 \code{gg_conditional_surv} produces a Kaplan-Meier plot for a variety of times on
