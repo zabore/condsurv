@@ -24,14 +24,12 @@
 #'
 
 gg_conditional_surv <- function(basekm,
-                         at,
-                         main = NULL,
-                         xlab = "Years",
-                         ylab = "Survival probability",
-                         lwd = 1) {
-
+                                at,
+                                main = NULL,
+                                xlab = "Years",
+                                ylab = "Survival probability",
+                                lwd = 1) {
   if (class(basekm) != "survfit") {
-
     stop(
       "Argument to basekm must be of class survfit"
     )
