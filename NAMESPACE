@@ -2,3 +2,5 @@
 
 export(conditional_surv_est)
 export(gg_conditional_surv)
+importFrom(magrittr,"%>%")
+importFrom(rlang,.data)

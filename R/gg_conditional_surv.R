@@ -17,6 +17,9 @@
 #' at \href{http://www.emilyzabor.com/condsurv/articles/plot_cs.html}{http://www.emilyzabor.com/condsurv/articles/plot_cs.html} for
 #' details and examples.
 #'
+#' @importFrom magrittr "%>%"
+#' @importFrom rlang .data
+#'
 #' @export
 #'
 
@@ -26,9 +29,9 @@ gg_conditional_surv <- function(basekm,
                          xlab = "Years",
                          ylab = "Survival probability",
                          lwd = 1) {
-  library(magrittr)
 
   if (class(basekm) != "survfit") {
+
     stop(
       "Argument to basekm must be of class survfit"
     )
@@ -65,11 +68,11 @@ gg_conditional_surv <- function(basekm,
 
   condsurvdat <- fitkmdat %>%
     purrr::map_df(`[`, .id = "condtime") %>%
-    dplyr::mutate(condtime = factor(condtime, labels = at))
+    dplyr::mutate(condtime = factor(.data$condtime, labels = at))
 
   ggplot2::ggplot(
     condsurvdat,
-    ggplot2::aes(x = timept, y = prob, color = condtime)
+    ggplot2::aes(x = .data$timept, y = .data$prob, color = .data$condtime)
   ) +
     ggplot2::geom_step(lwd = lwd) +
     ggplot2::ylim(0, 1) +

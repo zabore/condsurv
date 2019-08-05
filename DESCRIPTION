@@ -12,7 +12,10 @@ Imports:
     survival,
     dplyr,
     ggplot2,
-    purrr
+    purrr,
+    tibble,
+    magrittr,
+    rlang
 RoxygenNote: 6.1.1
 Encoding: UTF-8
 Suggests: 
