@@ -63,12 +63,12 @@ gg_conditional_surv <- function(basekm,
   }
 
   condsurvdat <- fitkmdat %>%
-    purrr::map_df(`[`, .id = "condtime") %>%
-    dplyr::mutate(condtime = factor(.data$condtime, labels = at))
+    purrr::map_df(`[`, .id = "which_at") %>%
+    dplyr::mutate(condtime = factor(which_at, labels = at))
 
   ggplot2::ggplot(
     condsurvdat,
-    ggplot2::aes(x = .data$timept, y = .data$prob, color = .data$condtime)
+    ggplot2::aes(x = timept, y = prob, color = condtime)
   ) +
     ggplot2::geom_step(lwd = lwd) +
     ggplot2::ylim(0, 1) +
