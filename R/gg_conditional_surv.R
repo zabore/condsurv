@@ -64,7 +64,7 @@ gg_conditional_surv <- function(basekm,
 
   condsurvdat <- fitkmdat %>%
     purrr::map_df(`[`, .id = "which_at") %>%
-    dplyr::mutate(condtime = factor(which_at, labels = at))
+    dplyr::mutate(condtime = factor(which_at, levels = seq(1, nt), labels = at))
 
   ggplot2::ggplot(
     condsurvdat,
