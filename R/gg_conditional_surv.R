@@ -44,8 +44,6 @@ gg_conditional_surv <- function(basekm,
     )
   }
 
-  at <- c(0, at)
-
   nt <- length(at)
 
   fitkm <- list()
