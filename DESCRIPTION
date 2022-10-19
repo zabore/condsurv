@@ -22,4 +22,4 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: http://www.emilyzabor.com/condsurv/
+URL: http://www.emilyzabor.me/condsurv/

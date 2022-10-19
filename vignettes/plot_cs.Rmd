@@ -1,10 +1,10 @@
 ---
-title: "Plot conditional survival estimates over time"
+title: "Plot conditional survival curves"
 author: "Emily C. Zabor"
 date: "Last updated: `r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{plot_cs}
+  %\VignetteIndexEntry{Plot conditional survival curves}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

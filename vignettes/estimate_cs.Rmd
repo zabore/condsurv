@@ -4,7 +4,7 @@ author: "Emily C. Zabor"
 date: "Last updated: `r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{estimate_cs}
+  %\VignetteIndexEntry{Estimate conditional survival}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

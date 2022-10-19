@@ -14,7 +14,7 @@
 #' additional line for each value in \code{at}
 #'
 #' #' @details See the vignette
-#' at \href{http://www.emilyzabor.com/condsurv/articles/plot_cs.html}{http://www.emilyzabor.com/condsurv/articles/plot_cs.html} for
+#' at \href{http://www.emilyzabor.me/condsurv/articles/plot_cs.html}{http://www.emilyzabor.me/condsurv/articles/plot_cs.html} for
 #' details and examples.
 #'
 #' @importFrom magrittr "%>%"
