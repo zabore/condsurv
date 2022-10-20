@@ -1,22 +1,22 @@
-#' Estimate conditional survival with a 95\% confidence interval
+#' Estimate conditional survival with a 95% confidence interval
 #'
-#' \code{conditional_surv_est} estimates the Kaplan-Meier conditional survival at
-#' fixed time points and produces a 95\% confidence interval
+#' `conditional_surv_est` estimates the Kaplan-Meier conditional survival at
+#' fixed time points and produces a 95% confidence interval
 #'
-#' @param basekm \code{survfit} object
+#' @param basekm `survfit` object
 #' @param t1 the time on which to condition
 #' @param t2 the survival time to estimate
 #'
-#' @details For example, if \code{t1} = 2 and \code{t2} = 5, the function
+#' @details For example, if `t1` = 2 and `t2` = 5, the function
 #' will return the probability of surviving to year 5 conditioned on having
 #' already survived to year 2. See the vignette
-#' at \href{http://www.emilyzabor.me/condsurv/articles/estimate_cs.html}{http://www.emilyzabor.me/condsurv/articles/estimate_cs.html} for
+#' at [http://www.emilyzabor.com/condsurv/articles/estimate_cs.html](http://www.emilyzabor.com/condsurv/articles/estimate_cs.html) for
 #' details on calculations of conditional survival estimates and confidence
 #' intervals, and examples.
 #'
-#' @return A list where \code{cs_est} is the conditional survival estimate,
-#' \code{cs_lci} is the lower bound of the 95% confidence interval and
-#' \code{cs_uci} is the upper bound of the 95% confidence interval
+#' @return A list where `cs_est` is the conditional survival estimate,
+#' `cs_lci` is the lower bound of the 95% confidence interval and
+#' `cs_uci` is the upper bound of the 95% confidence interval
 #'
 #' @export
 #'

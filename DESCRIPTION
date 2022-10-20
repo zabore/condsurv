@@ -16,10 +16,11 @@ Imports:
     tibble,
     magrittr,
     rlang
-RoxygenNote: 6.1.1
+RoxygenNote: 7.2.1
 Encoding: UTF-8
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: http://www.emilyzabor.me/condsurv/
+URL: http://www.emilyzabor.com/condsurv/
+Roxygen: list(markdown = TRUE)

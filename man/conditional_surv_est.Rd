@@ -15,8 +15,8 @@ conditional_surv_est(basekm, t1, t2)
 }
 \value{
 A list where \code{cs_est} is the conditional survival estimate,
-\code{cs_lci} is the lower bound of the 95% confidence interval and
-\code{cs_uci} is the upper bound of the 95% confidence interval
+\code{cs_lci} is the lower bound of the 95\% confidence interval and
+\code{cs_uci} is the upper bound of the 95\% confidence interval
 }
 \description{
 \code{conditional_surv_est} estimates the Kaplan-Meier conditional survival at
@@ -26,7 +26,7 @@ fixed time points and produces a 95\% confidence interval
 For example, if \code{t1} = 2 and \code{t2} = 5, the function
 will return the probability of surviving to year 5 conditioned on having
 already survived to year 2. See the vignette
-at \href{http://www.emilyzabor.me/condsurv/articles/estimate_cs.html}{http://www.emilyzabor.me/condsurv/articles/estimate_cs.html} for
+at \url{http://www.emilyzabor.com/condsurv/articles/estimate_cs.html} for
 details on calculations of conditional survival estimates and confidence
 intervals, and examples.
 }

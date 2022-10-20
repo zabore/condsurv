@@ -1,9 +1,9 @@
 #' Generate conditional survival plots using ggplot2
 #'
-#' \code{gg_conditional_surv} produces a Kaplan-Meier plot for a variety of times on
+#' `gg_conditional_surv` produces a Kaplan-Meier plot for a variety of times on
 #' which to condition using ggplot2
 #'
-#' @param basekm \code{survfit} object
+#' @param basekm `survfit` object
 #' @param at vector of times on which to condition
 #' @param main plot title
 #' @param xlab x-axis label
@@ -11,10 +11,10 @@
 #' @param lwd plot line width, defaults to 1
 #'
 #' @return A ggplot with a line for the overall Kaplan-Meier plot and one
-#' additional line for each value in \code{at}
+#' additional line for each value in `at`
 #'
 #' #' @details See the vignette
-#' at \href{http://www.emilyzabor.me/condsurv/articles/plot_cs.html}{http://www.emilyzabor.me/condsurv/articles/plot_cs.html} for
+#' at [http://www.emilyzabor.com/condsurv/articles/plot_cs.html](http://www.emilyzabor.com/condsurv/articles/plot_cs.html) for
 #' details and examples.
 #'
 #' @importFrom magrittr "%>%"

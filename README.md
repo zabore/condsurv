@@ -19,9 +19,9 @@ remotes::install_github("zabore/condsurv")
 
 This package is documented using
 [pkgdown](https://pkgdown.r-lib.org/articles/pkgdown.html), and the
-resulting website is available at <http://www.emilyzabor.me/condsurv/>,
+resulting website is available at <http://www.emilyzabor.com/condsurv/>,
 where detailed Tutorials can be found covering all of the package
 functionality.
 
-See <http://www.emilyzabor.me/condsurv/reference/> for detailed function
-documentation.
+See <http://www.emilyzabor.com/condsurv/reference/> for detailed
+function documentation.

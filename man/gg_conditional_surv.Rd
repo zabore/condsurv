@@ -4,8 +4,14 @@
 \alias{gg_conditional_surv}
 \title{Generate conditional survival plots using ggplot2}
 \usage{
-gg_conditional_surv(basekm, at, main = NULL, xlab = "Years",
-  ylab = "Survival probability", lwd = 1)
+gg_conditional_surv(
+  basekm,
+  at,
+  main = NULL,
+  xlab = "Years",
+  ylab = "Survival probability",
+  lwd = 1
+)
 }
 \arguments{
 \item{basekm}{\code{survfit} object}
@@ -25,7 +31,7 @@ A ggplot with a line for the overall Kaplan-Meier plot and one
 additional line for each value in \code{at}
 
 #' @details See the vignette
-at \href{http://www.emilyzabor.com/condsurv/articles/plot_cs.html}{http://www.emilyzabor.com/condsurv/articles/plot_cs.html} for
+at \url{http://www.emilyzabor.com/condsurv/articles/plot_cs.html} for
 details and examples.
 }
 \description{

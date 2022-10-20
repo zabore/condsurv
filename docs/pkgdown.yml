@@ -4,8 +4,8 @@ pkgdown_sha: ~
 articles:
   estimate_cs: estimate_cs.html
   plot_cs: plot_cs.html
-last_built: 2022-10-19T20:43Z
+last_built: 2022-10-20T15:11Z
 urls:
-  reference: http://www.emilyzabor.me/condsurv/reference
-  article: http://www.emilyzabor.me/condsurv/articles
+  reference: http://www.emilyzabor.com/condsurv/reference
+  article: http://www.emilyzabor.com/condsurv/articles
 
