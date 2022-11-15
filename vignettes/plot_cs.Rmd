@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, message = FALSE}
+```{r setup, message = FALSE, warning = FALSE}
 library(condsurv)
 library(survival)
 library(ggplot2)
