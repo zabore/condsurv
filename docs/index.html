@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Conditional survival estimates and plots • condsurv</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -19,7 +19,7 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -42,33 +42,18 @@
 <li>
   <a href="index.html">
     <span class="fa fa-home"></span>
-     
+
   </a>
 </li>
 <li>
   <a href="reference/index.html">Function Documentation</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Tutorials
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/estimate_cs.html">Estimate conditional survival</a>
-    </li>
-    <li>
-      <a href="articles/plot_cs.html">Plot conditional survival curves</a>
-    </li>
-  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/zabore/condsurv" class="external-link">
     <span class="fa fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -79,7 +64,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="contents col-md-9">
@@ -92,7 +77,131 @@
 </h2>
 <p>Install the package using</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"zabore/condsurv"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"zabore/condsurv"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="estimate-conditional-survival">Estimate conditional survival<a class="anchor" aria-label="anchor" href="#estimate-conditional-survival"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.emilyzabor.com/condsurv/">condsurv</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></code></pre></div>
+<p>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S(t)</annotation></semantics></math> represents the survival function at time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, then conditional survival is defined as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>+</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>S</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">S(y|x) = \frac{S(x + y)}{S(x)}</annotation></semantics></math></p>
+<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> is the number of additional survival years of interest and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> is the number of years a subject has already survived.</p>
+<p>The <code>conditional_surv_est</code> function will generate this estimate along with 95% confidence intervals.</p>
+<p>The <code>lung</code> dataset from the <code>survival</code> package will be used to illustrate.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Scale the time variable to be in years rather than days</span></span>
+<span><span class="va">lung2</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="va">lung</span>,</span>
+<span>    os_yrs <span class="op">=</span> <span class="va">time</span> <span class="op">/</span> <span class="fl">365.25</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p>First generate a single conditional survival estimate. This is the conditional survival of surviving to 1 year conditioned on already having survived 6 months (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.5</mn><annotation encoding="application/x-tex">0.5</annotation></semantics></math> year). This returns a list, where <code>cs_est</code> is the conditional survival estimate, <code>cs_lci</code> is the lower bound of the 95% confidence interval and <code>cs_uci</code> is the upper bound of the 95% confidence interval.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">myfit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/survfit.html" class="external-link">survfit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">os_yrs</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">lung2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/conditional_surv_est.html">conditional_surv_est</a></span><span class="op">(</span></span>
+<span>  basekm <span class="op">=</span> <span class="va">myfit</span>,</span>
+<span>  t1 <span class="op">=</span> <span class="fl">0.5</span>, </span>
+<span>  t2 <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; $cs_est</span></span>
+<span><span class="co">#&gt; [1] 0.58</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $cs_lci</span></span>
+<span><span class="co">#&gt; [1] 0.49</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $cs_uci</span></span>
+<span><span class="co">#&gt; [1] 0.66</span></span></code></pre></div>
+<p>You can easily use <code><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">purrr::map_df</a></code> to get a table of estimates for multiple timepoints. For example we could get the conditional survival estimate of surviving to a variety of different time points given that the subject has already survived for 6 months (0.5 years).</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prob_times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2.5</span>, <span class="fl">0.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_df</a></span><span class="op">(</span></span>
+<span>  <span class="va">prob_times</span>, </span>
+<span>  <span class="op">~</span><span class="fu"><a href="reference/conditional_surv_est.html">conditional_surv_est</a></span><span class="op">(</span></span>
+<span>    basekm <span class="op">=</span> <span class="va">myfit</span>, </span>
+<span>    t1 <span class="op">=</span> <span class="fl">0.5</span>, </span>
+<span>    t2 <span class="op">=</span> <span class="va">.x</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>years <span class="op">=</span> <span class="va">prob_times</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">years</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th align="right">years</th>
+<th align="right">cs_est</th>
+<th align="right">cs_lci</th>
+<th align="right">cs_uci</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="right">1.0</td>
+<td align="right">0.58</td>
+<td align="right">0.49</td>
+<td align="right">0.66</td>
+</tr>
+<tr>
+<td align="right">1.5</td>
+<td align="right">0.36</td>
+<td align="right">0.27</td>
+<td align="right">0.45</td>
+</tr>
+<tr>
+<td align="right">2.0</td>
+<td align="right">0.16</td>
+<td align="right">0.10</td>
+<td align="right">0.25</td>
+</tr>
+<tr>
+<td align="right">2.5</td>
+<td align="right">0.07</td>
+<td align="right">0.02</td>
+<td align="right">0.15</td>
+</tr>
+</tbody>
+</table>
+<div class="section level3">
+<h3 id="a-note-on-confidence-interval-estimation">A note on confidence interval estimation<a class="anchor" aria-label="anchor" href="#a-note-on-confidence-interval-estimation"></a>
+</h3>
+<p>The confidence intervals are based on a variation of the log-log transformation, also known as the “exponential” Greenwood formula, where the conditional survival estimate is substituted in for the traditional survival estimate in constructing the confidence interval.</p>
+<p>If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>S</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\hat{S}(y|x)</annotation></semantics></math> is the estimated conditional survival to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> given having already survived to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>, then</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>S</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>e</mi><mi>x</mi><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mi>±</mi><mn>1.96</mn><msqrt><mrow><mover><mi>L</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\hat{S}(y|x)^{exp(\pm1.96\sqrt{\hat{L}(y|x)})}</annotation></semantics></math></p>
+<p>where</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>L</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mover><mi>S</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></mfrac><munder><mo>∑</mo><mrow><mi>j</mi><mo>:</mo><mi>x</mi><mo>≤</mo><msub><mi>τ</mi><mi>j</mi></msub><mo>≤</mo><mi>y</mi></mrow></munder><mfrac><msub><mi>d</mi><mi>j</mi></msub><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>r</mi><mi>j</mi></msub><mo>−</mo><msub><mi>d</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>r</mi><mi>j</mi></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">\hat{L}(y|x)=\frac{1}{\log(\hat{S}(y|x))^2}\sum_{j:x \leq \tau_j \leq y}\frac{d_j}{(r_j-d_j)r_j}</annotation></semantics></math></p>
+<p>and</p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>τ</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\tau_j</annotation></semantics></math> = distinct death time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>j</mi></msub><annotation encoding="application/x-tex">d_j</annotation></semantics></math> = number of failures at death time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>r</mi><mi>j</mi></msub><annotation encoding="application/x-tex">r_j</annotation></semantics></math> = number at risk at death time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="plot-conditional-survival-curves">Plot conditional survival curves<a class="anchor" aria-label="anchor" href="#plot-conditional-survival-curves"></a>
+</h2>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<p>To plot the conditional survival curves at baseline, and for those who have survived 6 months, 1 year, 1.5 years, and 2 years, we use the <code>gg_conditional_surv</code> function.</p>
+<p>The <code>lung</code> dataset from the <code>survival</code> package will be used to illustrate.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Scale the time variable to be in years rather than days</span></span>
+<span><span class="va">lung2</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="va">lung</span>,</span>
+<span>    os_yrs <span class="op">=</span> <span class="va">time</span> <span class="op">/</span> <span class="fl">365.25</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">myfit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/survfit.html" class="external-link">survfit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">os_yrs</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">lung2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cond_times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/gg_conditional_surv.html">gg_conditional_surv</a></span><span class="op">(</span></span>
+<span>  basekm <span class="op">=</span> <span class="va">myfit</span>, </span>
+<span>  at <span class="op">=</span> <span class="va">cond_times</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"Conditional survival in lung data"</span></span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-7-1.png" alt="" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
@@ -122,8 +231,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Emily C. Zabor <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Mithat Gonen <br><small class="roles"> Author </small>  </li>
+<li>Emily C. Zabor <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Mithat Gonen <br><small class="roles"> Author </small>   </li>
 </ul>
 </div>
 
@@ -140,16 +249,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>
